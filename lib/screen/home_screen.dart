@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.pink[100],
       body: SafeArea(
         bottom: false,
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 selectedDate: selectedDate,
                 onPressed: onHeartPressed,
               ),
-              _BottomPart(),
+              const _BottomPart(),
             ],
           ),
         ),
@@ -77,7 +77,7 @@ class _TopPart extends StatelessWidget {
   final DateTime selectedDate;
   final VoidCallback onPressed;
 
-  _TopPart({
+  const _TopPart({
     required this.selectedDate,
     required this.onPressed,
     super.key,
@@ -85,6 +85,8 @@ class _TopPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
     final now = DateTime.now();
 
     return Expanded(
@@ -93,36 +95,24 @@ class _TopPart extends StatelessWidget {
         children: [
           Text(
             'U&I',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'parisienne',
-              fontSize: 80.0,
-            ),
+            style: theme.textTheme.displayLarge,
           ),
           Column(
             children: [
               Text(
                 '우리 처음 만난 날',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'sunflower',
-                  fontSize: 30.0,
-                ),
+                style: textTheme.bodyLarge,
               ),
               Text(
                 '${selectedDate.year}.${selectedDate.month}.${selectedDate.day}',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'sunflower',
-                  fontSize: 20.0,
-                ),
+                style: textTheme.bodyMedium,
               ),
             ],
           ),
           IconButton(
             iconSize: 60.0,
             onPressed: onPressed,
-            icon: Icon(
+            icon: const Icon(
               Icons.favorite,
               color: Colors.red,
             ),
@@ -133,12 +123,7 @@ class _TopPart extends StatelessWidget {
                   now.month,
                   now.day,
                 ).difference(selectedDate).inDays + 1}',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'sunflower',
-              fontSize: 50.0,
-              fontWeight: FontWeight.w700,
-            ),
+            style: textTheme.displayMedium,
           ),
         ],
       ),
